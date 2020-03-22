@@ -15,9 +15,6 @@ class Game
 
 
 def run
-  @grid[2][3].status=1
-  @grid[2][4].status=1
-  @grid[2][2].status=1
   #@grid[1][4].status=1
   evaluateAll
   regenerate
