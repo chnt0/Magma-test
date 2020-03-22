@@ -6,7 +6,7 @@ class Game
   #initialice the grid
   def initialize(size,iterations)
     @size = size
-    @iterations
+    @iterations=iterations
     @grid=Array.new(size) { |i| Array.new(size){|j|
       Cell.new(0,i,j)}   }
 
@@ -15,17 +15,20 @@ class Game
 
 
 def run
-  #@grid[1][4].status=1
-  evaluateAll
-  regenerate
-  to_s
+  iterate =0
+  while iterate<  @iterations
+    evaluateAll
+    regenerate
+    to_s
+    iterate+=1
+  end
+
 
 
 end
 
 def evaluate(i, j)
    cont= adyacent(i,j)
-   #rule one
    if @grid[i][j].status==0
      if cont==3
        	@grid[i][j].toNextGeneration=1
@@ -43,18 +46,12 @@ def evaluate(i, j)
        @grid[i][j].toNextGeneration=0
      end
    end
-puts cont
 end
 
 
-
-    def uno(a,b)
-    puts  @grid[a][b]
-    puts  @grid[a][b].toNextGeneration
-    end
-
 #print the grid
     def to_s
+      puts "-------------------------"
       @grid.each { |a|
         a.each {|b|
           print " ",b.to_s
@@ -94,7 +91,7 @@ def adyacent(x,y)
   cont+= exist(x+1,y-1)
   cont+=exist(x+1,y)
   cont+= exist(x+1,y+1)
-  cont
+ return  cont
 end
 
 def exist(x,y)
@@ -104,7 +101,11 @@ def exist(x,y)
     status=@grid[x][y].status
     end
   end
-  status
+  return status
+end
+
+def set_alive(x,y)
+    @grid[x][y].status=1
 end
 
 end
